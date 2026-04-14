@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מִרְקַחַת הַיַעַר | Merkachat Yaar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Rashi+Hebrew:wght@100..900&family=Noto+Sans+Hebrew:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c4c3b; /* Deep forest green */
+            --accent-color: #8b5a2b;  /* Earthy wood brown */
+            --bg-color: #fdfcf9;      /* Soft paper-like white */
+            --text-color: #2a2a2a;
+            --brand-font: 'Noto Rashi Hebrew', serif;
+            --ui-font: 'Noto Sans Hebrew', sans-serif;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--ui-font);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            color: var(--primary-color);
+            padding: 1rem 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            gap: 15px;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .logo img {
+            height: 200px;
+            mix-blend-mode: multiply;
+            display: block;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.3)), url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-color);
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-family: var(--brand-font);
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            margin: 0;
+            color: var(--primary-color);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            line-height: 1.1;
+        }
+
+        .hero h4 {
+            font-family: var(--ui-font);
+            font-size: 1.8rem;
+            margin: -5px 0 20px 0;
+            font-weight: 400;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin-bottom: 35px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        /* Content Sections */
+        section {
+            padding: 80px 10%;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-alt {
+            background-color: #f4f1ea;
+            max-width: 100%;
+        }
+
+        .inner-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        h3 {
+            font-family: var(--ui-font);
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        h5 {
+            font-family: var(--ui-font);
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: -10px 0 30px 0;
+            color: var(--accent-color);
+        }
+
+        h3::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 12px;
+            opacity: 0.4;
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* Gallery Carousel Styles */
+        .gallery-wrapper {
+            width: 100%;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 20px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 20px;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(44, 76, 59, 0.2);
+            margin-top: 10px;
+            z-index: 20;
+            position: relative;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Event Cards (Schedule) Styles */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            text-align: right;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .event-date-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .event-date-badge .day { font-size: 1.2rem; font-weight: 700; }
+        .event-date-badge .date { font-size: 1rem; opacity: 0.9; }
+        
+        .event-details {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-details h4 {
+            margin: 0 0 15px 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .event-meta {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .event-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #444;
+            flex-grow: 1;
+        }
+        
+        .event-status {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: auto;
+            font-size: 1rem;
+        }
+        
+        .status-full {
+            background-color: #f5f5f5;
+            color: #888;
+            border: 1px solid #ddd;
+        }
+        
+        .status-open-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .status-open-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Mushrooms */
+        .mush-icon {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            opacity: 0;
+            transform: scale(0.4) translateY(60px) rotate(-15deg);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        .mush-icon.active {
+            opacity: 0.9;
+            transform: scale(1.1) translateY(0) rotate(0deg);
+        }
+
+        .m-gal-l { left: -50px; top: 30%; }
+        .m-gal-r { right: -50px; bottom: 20%; }
+        .m1 { left: -80px; top: 15%; }
+        .m2 { right: -90px; top: 45%; }
+        .m3 { left: -70px; top: 20%; }
+        .m4 { right: -100px; bottom: 10%; }
+        .m5 { left: -110px; top: 30%; }
+        .m6 { right: -60px; top: 60%; }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #aaa;
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: #aaa;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: #fdfcf9;
+            transform: translateY(-3px);
+        }
+
+        .social-links svg {
+            width: 30px;
+            height: 30px;
+            fill: currentColor;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-item { flex: 0 0 45%; }
+            .gallery-item img { height: 350px; }
+        }
+
+        @media (max-width: 1100px) {
+            .mush-icon { width: 80px; height: 80px; }
+            .m1, .m3, .m5, .m-gal-l { left: -20px; }
+            .m2, .m4, .m6, .m-gal-r { right: -20px; }
+        }
+        
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; }
+            .hero h2 { font-size: 3rem; }
+            section { padding: 60px 5%; }
+            .mush-icon { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">
+            <img src="images/logo.png" alt="מִרְקַחַת הַיַעַר">
+        </a>
+        <ul>
+            <li><a href="#gallery">גלריה</a></li>
+            <li><a href="#tours">סיורים</a></li>
+            <li><a href="#schedule">פעילויות</a></li>
+            <li><a href="#workshops">סדנאות</a></li>
+            <li><a href="#about">קצת עליי</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h2>מִרְקַחַת הַיַעַר</h2>
+        <h4>מכבדים את הטבע</h4>
+        <p>מסע אל הסודות שביערות וחיבור אמיתי לטבע דרך ממלכת הפטריות והצמחים. המסע שלנו אינו חיפוש אחר ארוחה או קורס ליקוט, אלא הזמנה להקשיב ולהתבונן. לגלות את הרשתות הנסתרות שמקיימות את החורש, לחוות את השפע שהבורא יצר, ולפסוע בכבוד בתוך הפלא שרוחש מתחת לרגליים. אני מזמין אתכם לצאת מהשגרה, להיכנס אל הפרא, וללמוד איך להיות שותפים של היער, לפני שחושבים מה אפשר לקחת ממנו.
+הסיורים שלנו מתמקדים בהיכרות אקולוגית, הבנת השטח וחוויה חושית עמוקה עם עולם הפטריות, ואינם מוגדרים כסיורי ליקוט למטרות אכילה או קטיף מסחרי.</p>
+        <a href="https://wa.me/972529910006" class="btn" target="_blank">צרו קשר</a>
+    </header>
+
+    <section id="gallery" style="max-width: 100%; background-color: #fdfcf9; padding-bottom: 40px;">
+        <svg class="mush-icon m-gal-l" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#f1c40f"/>
+            <circle cx="40" cy="40" r="3" fill="white" opacity="0.6"/>
+            <circle cx="60" cy="45" r="4" fill="white" opacity="0.6"/>
+        </svg>
+
+        <div class="inner-content">
+            <h3>רגעים מהיער</h3>
+            <p>מבט קטן אל הפלא שאנחנו מגלים בסיורים ובסדנאות שלנו.</p>
+        </div>
+
+        <div class="gallery-wrapper">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\1.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\2.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\3.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\4.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\5.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\6.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\7.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\8.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\9.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\10.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\11.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\12.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\13.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\14.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\ikosu\Documents\MerkachatYaar\images\15.jpeg" alt="">
+                    <div class="gallery-caption"></div>
+                </div>
+            </div>
+        </div>
+
+        <svg class="mush-icon m-gal-r" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#ff7675"/>
+            <circle cx="45" cy="38" r="4" fill="white" opacity="0.8"/>
+            <circle cx="65" cy="42" r="3" fill="white" opacity="0.8"/>
+        </svg>
+    </section>
+
+    <section id="tours">
+        <svg class="mush-icon m1" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#e74c3c"/>
+            <circle cx="35" cy="40" r="4" fill="white"/>
+            <circle cx="50" cy="35" r="3" fill="white"/>
+            <circle cx="65" cy="42" r="4" fill="white"/>
+            <circle cx="48" cy="48" r="2" fill="white"/>
+        </svg>
+        <svg class="mush-icon m2" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#2c4c3b"/>
+        </svg>
+
+        <div class="inner-content">
+            <h3>סיורים</h3>
+            <h5>לצאת אל השטח</h5>
+            <p>הצטרפו אליי לסיורים מרתקים ביערות ובחורשות. נלמד יחד כיצד להתבונן ביער בעיניים חדשות, נכיר את הפטריות הגדלות בר באזורנו, ונבין את תפקידן הקריטי במערכת האקולוגית.</p>
+            <p>הסיורים מתקיימים בקבוצות קטנות, תוך דגש על כבוד ליער, זיהוי אחראי, והבנת החיבור העמוק בין אדמה, פטריות, צמחים ובעלי חיים.</p>
+        </div>
+    </section>
+
+    <section id="schedule" class="section-alt">
+        <div class="inner-content">
+            <h3>לוח פעילויות קרובות</h3>
+            <h5>סיורים וסדנאות - חודש קדימה</h5>
+            <p>מוזמנים להצטרף אליי ליציאה הבאה ליער או לסדנה הקרובה. מספר המקומות בכל פעילות מוגבל כדי לשמור על יחס אישי ועל כבוד לטבע.</p>
+        </div>
+        
+        <div class="events-grid" id="events-grid"></div>
+    </section>
+
+    <section id="workshops">
+        <svg class="mush-icon m3" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#8b5a2b"/>
+        </svg>
+        <svg class="mush-icon m4" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#e67e22"/>
+        </svg>
+
+        <div class="inner-content">
+            <h3>סדנאות אונליין</h3>
+            <h5>להכיר את עולם הפטריות מרחוק</h5>
+            <p>למי שלא יכול להגיע לשטח, או מעוניין להעמיק את הידע שלו מהבית - אני מקיים סדנאות והרצאות אונליין לצפייה חופשית. הסדנאות מועברות באיכות מקצועית ברמת אולפן (תמונה חדה וסאונד נקי), כדי שתוכלו לחוות את התוכן בצורה הברורה והטובה ביותר. כרגע השידורים מועברים דרך הוובקס שזמין לכל אחד להרשמה לצפייה דרך הווב, לינקים יפורסמו בדף הפייסבוק ובאתר.</p>
+            <p>בסדנאות נדבר על היכרות עם עולם המיקולוגיה הפראי, רפואת היער, והפילוסופיה שבדבר.</p>
+        </div>
+    </section>
+
+    <section id="about" class="section-alt">
+        <svg class="mush-icon m5" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#6c5ce7"/>
+        </svg>
+        <svg class="mush-icon m6" viewBox="0 0 100 100">
+            <path d="M50 85c-3 0-5-2-5-5V60c0-3 2-5 5-5s5 2 5 5v20c0 3-2 5-5 5z" fill="#f0e6d2"/>
+            <path d="M20 55c0-15 10-25 30-25s30 10 30 25c0 3-5 5-10 5H30c-5 0-10-2-10-5z" fill="#16a085"/>
+        </svg>
+
+        <div class="inner-content">
+            <h3>קצת עליי</h3>
+            <p>שלום, אני אנמרקר השני מ'מִרְקַחַת הַיַעַר'. את רוב הזמן שלי אני מבלה בין העצים והסלעים, מתבונן ורואה את המערכות העדינות שאחרים בדרך כלל מפספסים. הגישה שלי אל הפרא משלבת בין סקרנות מדעית ליראת כבוד. אני מקדיש את רוב הזמן לחקר מעמיק של עולם הפטריות (מיקולוגיה) והצומח המקומי, תוך למידה של הביולוגיה של החורש, זיהוי בוטני מדויק של מינים, והבנת המערכות האקולוגיות המורכבות בשטח. הכלים שרכשתי מאפשרים לי לקרוא את האדמה ולזהות את  המרכזים של רשתות המיקוריזה – אותן מערכות תפטיר שורשיות נסתרות שמקיימות את היער.</p>
+            <p>ובכל זאת, עם כל שעות הלמידה והידע המקצועי שצברתי, כל פעם שאני חושב שאני יודע קצת יותר על הטבע שמסביבנו, אני מבין שאני בעצם עדיין לא יודע כלום. הידע השלם נמצא אצל היחיד שיצר ונתן לנו את כל מה שאנחנו צריכים, ולא את מה שאנחנו רוצים, אלא את מה שאנחנו צריכים לרצות. המיסתורין שהוא נתן לנו בעולמות הבלתי נראים לעין, נמצא כמעט בכל מקום – באדמה, במים, באוויר וכמעט על כל משטח קיים. שם נקשרים קשרים ונבנים גשרים בין כל היצירות, מה שהופך את החיים למוות ואת המוות לחיים, מה שידאג תמיד לדורות הבאים.</p>
+            <p>ואיך כל זה היה קורה ללא התערבות אלוהית? הרי שהוא זה שנותן אישור לכל דבר, גם לצדיק וגם לרשע, ודואג גם לגדול ביותר וגם לקטן ביותר. אז כל מה שנשאר לנו, יחד עם ההבנה והמיומנות שלנו בשטח, הוא לגשת בזהירות ובכבוד מלא לאלה שחיים לצידנו, ודואגים כאחרוני השומרים גם לקטן שבקטנים.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61574387297435" target="_blank" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://wa.me/972529910006" target="_blank" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+        </div>
+        <p>&copy; 2026 מִרְקַחַת הַיַעַר | Merkachat Yaar. כל הזכויות שמורות.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">מכבדים את הטבע, אוהבים את הבריאה.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">Powered By Enmerkar II</p>
+    </footer>
+
+    <script>
+        // אנימציית הפטריות
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.mush-icon').forEach(mush => {
+            observer.observe(mush);
+        });
+
+        // =========================================================================
+        // אזור ניהול: לוח הפעילויות שלך 
+        // =========================================================================
+        // כאן אתה מעדכן את הסיורים! 
+        // שים לב: בסטטוס (status) תוכל לכתוב 'open' (פתוח) או 'full' (מלא).
+        // =========================================================================
+
+        const upcomingEvents = [
+            {
+                date: "20.04.2026",
+                day: "יום שני",
+                title: "סיור לזיהוי פטריות חורש",
+                location: "יער ביריה (אזור צפת)",
+                time: "09:00 - 13:00",
+                description: "סיור עומק למתחילים בין עצי האורן. נלמד לזהות פטריות, ונדבר על תפקידן האקולוגי ביער.",
+                status: "open", // שנה ל-full אם נגמר המקום
+                statusText: "פתוח להרשמה"
+            },
+            {
+                date: "24.04.2026",
+                day: "יום שישי",
+                title: "סיור לזיהוי פטריות חורש",
+                location: "חורבת חממה - מירון",
+                time: "09:00 - 14:00",
+                description: "מתקדמים - פגש שבו נתחבר לאחד מיערות האלונים העתיקים באיזור.",
+                status: "full",
+                statusText: "ההרשמה נסגרה (מלא)"
+            },
+            {
+                date: "29.04.2026",
+                day: "יום חמישי",
+                title: "מבוא למיקולוגיה פראית",
+                location: "סדנת אונליין (Webex)",
+                time: "19:00 - 20:30",
+                description: "סדנה אונליין. צוללים אל רפואת היער והפילוסופיה שבדבר.",
+                status: "full",
+                statusText: "פתוח לצפייה בוובקס - לינק יפורסם בדף הפייסבוק"
+            }
+        ];
+
+        // קוד שמייצר את הכרטיסיות (אל תגע כאן)
+        const eventsGrid = document.getElementById('events-grid');
+        
+        upcomingEvents.forEach(event => {
+            let statusHtml = '';
+            
+            // יצירת הודעת וואטסאפ מותאמת אישית לכל סיור
+            const waMessage = encodeURIComponent(`היי אנמרקר, אשמח לפרטים על "${event.title}" בתאריך ${event.date}`);
+            
+            if(event.status === 'open') {
+                statusHtml = `<a href="https://wa.me/972529910006?text=${waMessage}" class="status-open-btn" target="_blank">${event.statusText} - לתיאום בוואטסאפ</a>`;
+            } else {
+                statusHtml = `<div class="event-status status-full">${event.statusText}</div>`;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'event-card';
+            card.innerHTML = `
+                <div class="event-date-badge">
+                    <div class="day">${event.day}</div>
+                    <div class="date">${event.date}</div>
+                </div>
+                <div class="event-details">
+                    <h4>${event.title}</h4>
+                    <div class="event-meta">
+                        <span>📍 ${event.location}</span>
+                        <span>⏰ ${event.time}</span>
+                    </div>
+                    <div class="event-desc">${event.description}</div>
+                    ${statusHtml}
+                </div>
+            `;
+            eventsGrid.appendChild(card);
+        });
+    </script>
+
+</body>
+</html>
